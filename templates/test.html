@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Head: Containing all the meta data and import needed -->
+<head lang="en">
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../static/js/string_format.js"></script>
+    <meta charset="UTF-8">
+    <title>Ajax Demo</title>
+</head>
+
+<!-- Body: Containing all HTML of the page -->
+<body>
+    <div id="container"></div>
+    <button id="like">Like</button>
+    <button id="dislike">Dislike</button>
+
+    <div id="results"></div>
+</body>
+
+<!-- Javascript for programming logic in HTML -->
+<!-- Logic to load the next image or when the images run out sent data to backend -->
+<script>
+    var imgNames = {{ sample_image_names | safe }};
+    window.likeLst = [];
+    window.dislikeLst = [];
+    window.imgListLen = imgNames.length;
+    window.ith_image = 0;
+    var imgHTML = '<img src="{0}" height="48px" height="48px">';
+
+    function accessImage() {
+        if (window.ith_image < window.imgListLen) {
+            // Generate HTML img tag for the image
+            var imgName = imgNames[window.ith_image];
+            var imgHTMLFormat = String.format(imgHTML, imgName);
+            $('#container').html(imgHTMLFormat);
+        }
+
+        if (window.ith_image === window.imgListLen) {
+            // If it is at the end of the list, send it to the back end
+            $.ajax({
+                'url': '/process_images',
+                'data': JSON.stringify([window.likeLst, window.dislikeLst]),
+                'type': 'POST',
+                'contentType': 'application/json',
+                'success': function (data) {
+                    var result_images = JSON.parse(data);
+                    for (i in result_images) {
+                        $('#results').append(String.format(imgHTML, result_images[i]));
+                    }
+                },
+                'error': function (request, status, error) {
+                    console.log('Oh no!! Something went wrong.');
+                }
+            });
+        }
+        window.ith_image += 1;
+
+    }
+
+    // Load the first image
+    $(document).ready(function(){accessImage();});
+
+</script>
+
+<!-- Logic to add image to like and dislike list -->
+<script>
+    $('#like').click(function() {
+        console.log('clicked like');
+        var imgName = imgNames[window.ith_image - 1];
+        window.likeLst.push(imgName);
+        accessImage();
+    });
+    $('#dislike').click(function() {
+        console.log('clicked dislike');
+        var imgName = imgNames[window.ith_image - 1];
+        window.dislikeLst.push(imgName);
+        accessImage();
+    });
+</script>
+
+</html>
