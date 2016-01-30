@@ -305,7 +305,7 @@ def data(f1):
 	dict=f1.read()
 	#f.close()
 	return eval(dict)
-
+	
 @app.route('/', methods=['GET', 'POST'])
 def index():
    # histsimilar.data()
@@ -322,7 +322,7 @@ def index():
         file = request.files['file']
 		#print lii.append({'imgurl':'','title':'','name':'12.jpg'})
         if file and allowed_file(file.filename):
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], time.strftime('%Y-%m-%d %H-%M-%S',time.localtime(time.time()))+".jpg"))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], "a.jpg"))
             return render_template('index.html',dict=histsimilar.list2('F:\\flask-file-upload-example-master\\uploads'))
     return render_template('index.html',dict=histsimilar.data(filename))
 @app.route('/uploadstext',methods=['POST', 'GET'])
@@ -337,7 +337,7 @@ def find():
         file = request.files['file']
 		#print lii.append({'imgurl':'','title':'','name':'12.jpg'})
         if file and allowed_file(file.filename):
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], time.strftime('%Y-%m-%d %H-%M-%S',time.localtime(time.time()))+".jpg"))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], histsimilar.filesave(time.strftime('%Y-%m-%d %H-%M-%S',time.localtime(int(time.time())))+".jpg")))
             return render_template('index.html',dict=histsimilar.list2('F:\\flask-file-upload-example-master\\uploads'))
 @app.route('/direct',methods=['POST', 'GET'])
 def derictfile():
@@ -345,6 +345,51 @@ def derictfile():
 @app.route('/right',methods=['POST', 'GET'])
 def rights():
     return render_template('editor.html',data=json.dumps(histsimilar.addlistup(0)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down',methods=['POST', 'GET'])
+def downs():
+    return render_template('editor.html',datad=json.dumps(histsimilar.addlistdown(0)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/right1',methods=['POST', 'GET'])
+def rights1():
+    return render_template('editor.html',data1=json.dumps(histsimilar.addlistup(1)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down1',methods=['POST', 'GET'])
+def downs1():
+    return render_template('editor.html',datad1=json.dumps(histsimilar.addlistdown(1)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/right2',methods=['POST', 'GET'])
+def rights2():
+    return render_template('editor.html',data2=json.dumps(histsimilar.addlistup(2)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down2',methods=['POST', 'GET'])
+def downs2():
+    return render_template('editor.html',datad2=json.dumps(histsimilar.addlistdown(2)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/right3',methods=['POST', 'GET'])
+def rights3():
+    return render_template('editor.html',data3=json.dumps(histsimilar.addlistup(3)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down3',methods=['POST', 'GET'])
+def downs3():
+    return render_template('editor.html',datad3=json.dumps(histsimilar.addlistdown(3)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/right4',methods=['POST', 'GET'])
+def rights4():
+    return render_template('editor.html',data4=json.dumps(histsimilar.addlistup(4)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down4',methods=['POST', 'GET'])
+def downs4():
+    return render_template('editor.html',datad4=json.dumps(histsimilar.addlistdown(4)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/right5',methods=['POST', 'GET'])
+def rights5():
+    return render_template('editor.html',data5=json.dumps(histsimilar.addlistup(5)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down5',methods=['POST', 'GET'])
+def downs5():
+    return render_template('editor.html',datad5=json.dumps(histsimilar.addlistdown(5)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/right6',methods=['POST', 'GET'])
+def rights6():
+    return render_template('editor.html',data6=json.dumps(histsimilar.addlistup(6)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down6',methods=['POST', 'GET'])
+def downs6():
+    return render_template('editor.html',datad6=json.dumps(histsimilar.addlistdown(6)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/right7',methods=['POST', 'GET'])
+def rights7():
+    return render_template('editor.html',data7=json.dumps(histsimilar.addlistup(7)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
+@app.route('/down7',methods=['POST', 'GET'])
+def downs7():
+    return render_template('editor.html',datad7=json.dumps(histsimilar.addlistdown(7)),img_from_args=request.args.get('img'),content1=histsimilar.data0('database/test4.txt')[0]['text'],content2=histsimilar.data0('database/test4.txt')[1]['text'],content3=histsimilar.data0('database/test4.txt')[2]['text'],content4=histsimilar.data0('database/test4.txt')[3]['text'],content5=histsimilar.data0('database/test4.txt')[4]['text'],content6=histsimilar.data0('database/test4.txt')[5]['text'],content7=histsimilar.data0('database/test4.txt')[6]['text'],content8=histsimilar.data0('database/test4.txt')[7]['text'],content9=histsimilar.data0('database/test4.txt')[8]['text'])
 @app.route('/pagejump',methods=['POST', 'GET'])
 def index2():
 	return render_template('index.html',dict=histsimilar.data2(filename,request.args.get('page')))

@@ -10,6 +10,7 @@ from decimal import *
 fp1=open('database/test3.txt','w')
 fp=open('database/test1.txt','w')
 up=eval(open('database/test4.txt').read())
+down=eval(open('database/test4.txt').read())
 fp.truncate()
 fp1.truncate()
 def make_regalur_image(img, size = (256, 256)):
@@ -68,7 +69,7 @@ def clean(file):
 def list2(file):
     list=[]
     for dicts in data0('database/test.txt'):
-        r=calc_similar_by_path('uploads/'+time.strftime('%Y-%m-%d %H-%M-%S',time.localtime(time.time()))+'.jpg', 'uploads'+os.sep + dicts['name'])*100
+        r=calc_similar_by_path('uploads/'+open('database/temp.txt').read(), 'uploads'+os.sep + dicts['name'])*100
 	# list="[{'imgurl':'"+dict[1]['imgurl']+"','title':'"+dict[1]['title']+"','name':'"+dict[1]['name']+"'}]"
 	# b=20.000
 	#print '%.3f%%'(calc_similar_by_path('uploads/1.JPG', 'uploads'+os.sep + dict[0]['name']))
@@ -83,6 +84,10 @@ def list2(file):
     return list[0:9]
 def data0(filename):
 	return eval(open(filename).read())
+def filesave(filetxt):
+	open('database/temp.txt','w').write(filetxt)
+	print filetxt
+	return filetxt
 def data(filename):
     #f = open(filename)
 	dict = open(filename).read()
@@ -113,8 +118,20 @@ def writecontent8(content):
    open('database/testtopic9.txt','w').write(content)
 def addlistup(i):
 	up[i]['up']=int(up[i]['up'])+1
+	if up[i]['up']>up[i]['down']:
+	   up[i]['value']='1'
+	else:
+	   up[i]['value']='0'
 	write('database/test4.txt',str(up))
 	return up[i]['up']
+def addlistdown(i):
+	down[i]['down']=int(down[i]['down'])+1
+	if down[i]['up']>down[i]['down']:
+	   down[i]['value']='1'
+	else:
+	   down[i]['value']='0'
+	write('database/test4.txt',str(down))
+	return down[i]['down']
 def writelist():
 	a1=data0('database/test4.txt')
 	lists=[]
