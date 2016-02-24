@@ -69,7 +69,7 @@ def clean(file):
 def list2(file):
     list=[]
     for dicts in data0('database/test.txt'):
-        r=calc_similar_by_path('uploads/'+open('database/temp.txt').read(), 'uploads'+os.sep + dicts['name'])*100
+	r=calc_similar_by_path('uploads/'+open('database/temp.txt').read(), 'uploads'+os.sep + dicts['name'])*100
 	# list="[{'imgurl':'"+dict[1]['imgurl']+"','title':'"+dict[1]['title']+"','name':'"+dict[1]['name']+"'}]"
 	# b=20.000
 	#print '%.3f%%'(calc_similar_by_path('uploads/1.JPG', 'uploads'+os.sep + dict[0]['name']))

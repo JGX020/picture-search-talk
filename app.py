@@ -393,6 +393,11 @@ def downs7():
 @app.route('/pagejump',methods=['POST', 'GET'])
 def index2():
 	return render_template('index.html',dict=histsimilar.data2(filename,request.args.get('page')))
+@app.route('/_add_numbersss')
+def add_numbersss():
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
+    return jsonify(result=a + b)
 @app.route('/_add_numbers',methods=['POST', 'GET'])
 def add_numbers():
     textreplace.replace(open('database/test1.txt').readlines())

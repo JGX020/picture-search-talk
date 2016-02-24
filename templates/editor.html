@@ -15,13 +15,38 @@
     <link href="../static/css/froala_editor.min.css" rel="stylesheet">
     <link href="../static/css/froala_style.min.css" rel="stylesheet">
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    
+  
+  
+ 
+  
+ 
   </head>
     
-  <body>
+  <body > 
+  
+
+
     <div >
         <h1>Welcome!</h1>  
-
+        <div id="mapObj" style="position:absolute; top:-40px; right:20px;width: 400px; height: 300px"></div>
+       <script type="text/javascript">
+var mapObj,toolbar,overview,scale; var opt = { 
+level:13,//初始地图视野级别 
+center:new MMap.LngLat(115.397428,39.90923),//设置地图中心点 
+doubleClickZoom:true,//双击放大地图 
+scrollwheel:true//鼠标滚轮缩放地图 
+} 
+mapObj = new MMap.Map("mapObj",opt); 
+mapObj.plugin(["MMap.ToolBar","MMap.OverView","MMap.Scale"],function() 
+{ 
+toolbar = new MMap.ToolBar(); 
+toolbar.autoPosition=false; //加载工具条 
+mapObj.addControl(toolbar); 
+overview = new MMap.OverView(); //加载鹰眼 
+mapObj.addControl(overview); 
+scale = new MMap.Scale(); //加载比例尺 
+mapObj.addControl(scale); 
+}); </script>
         <!-- add a post -->
         <div class="row">
             <div class="col-md-12 col-sm-12">
