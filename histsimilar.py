@@ -9,6 +9,7 @@ import datetime
 from decimal import * 
 fp1=open('database/test3.txt','w')
 fp=open('database/test1.txt','w')
+filestr=open('database/test5.txt').read()
 up=eval(open('database/test4.txt').read())
 down=eval(open('database/test4.txt').read())
 fp.truncate()
@@ -98,24 +99,31 @@ def data(filename):
 	else:
 	   return lines[0:len(lines)]
 def writecontent(content):
-    open('database/testtopic1.txt','w').write(content)
-    #
-def writecontent1(content):
-   open('database/testtopic2.txt','w').write(content)
+    files=filestr.split(',')
+    b    =len(files)
+    for file in files:
+        b=b-1
+        if len(open('database/'+file).read())==0:
+			open('database/'+file,'w').write(content)
+	                if b>0:
+			    break
+    open('database/'+str(time.time())+'.txt','w')			#
+def writecontent1(content,i):
+   open('database/testtopic'+(i*9-7)+'.txt','w').write(content)
 def writecontent2(content):
-   open('database/testtopic3.txt','w').write(content)
+   open('database/testtopic'+(i*9-6)+'.txt','w').write(content)
 def writecontent3(content):
-   open('database/testtopic4.txt','w').write(content)
+   open('database/testtopic'+(i*9-5)+'.txt','w').write(content)
 def writecontent4(content):
-   open('database/testtopic5.txt','w').write(content)
+   open('database/testtopic'+(i*9-4)+'.txt','w').write(content)
 def writecontent5(content):
-   open('database/testtopic6.txt','w').write(content)
+   open('database/testtopic'+(i*9-3)+'.txt','w').write(content)
 def writecontent6(content):
-   open('database/testtopic7.txt','w').write(content)
+   open('database/testtopic'+(i*9-2)+'.txt','w').write(content)
 def writecontent7(content):
-   open('database/testtopic8.txt','w').write(content)
+   open('database/testtopic'+(i*9-1)+'.txt','w').write(content)
 def writecontent8(content):
-   open('database/testtopic9.txt','w').write(content)
+   open('database/testtopic'+(i*9)+'.txt','w').write(content)
 def addlistup(i):
 	up[i]['up']=int(up[i]['up'])+1
 	if up[i]['up']>up[i]['down']:
@@ -133,68 +141,32 @@ def addlistdown(i):
 	write('database/test4.txt',str(down))
 	return down[i]['down']
 def writelist():
-	a1=data0('database/test4.txt')
-	lists=[]
-	a1[0]['text']=open('database/testtopic1.txt').read()
-	lists.append(a1[0])
-	print lists
-	a1[1]['text']=open('database/testtopic2.txt').read()
-	lists.append(a1[1])
-	a1[2]['text']=open('database/testtopic3.txt').read()
-	lists.append(a1[2])
-	a1[3]['text']=open('database/testtopic4.txt').read()
-	lists.append(a1[3])
-	a1[4]['text']=open('database/testtopic5.txt').read()
-	lists.append(a1[4])
-	a1[5]['text']=open('database/testtopic6.txt').read()
-	lists.append(a1[5])
-	a1[6]['text']=open('database/testtopic7.txt').read()
-	lists.append(a1[6])
-	a1[7]['text']=open('database/testtopic8.txt').read()
-	lists.append(a1[7])
-	a1[8]['text']=open('database/testtopic9.txt').read()
-	lists.append(a1[8])
-	#a2['text']=str(open('database/testtopic2.txt').read())
-	#lists.append(a2)
-	#a3['text']=str(open('database/testtopic3.txt').read())
-	#lists.append(a3)
-	#a4['text']=str(open('database/testtopic4.txt').read())
-	#lists.append(a4)
-	#a5['text']=str(open('database/testtopic5.txt').read())
-	#lists.append(a5)
-	#a6['text']=str(open('database/testtopic6.txt').read())
-	#lists.append(a6)
-	#a7['text']=str(open('database/testtopic7.txt').read())
-	#lists.append(a7)
-	#a8['text']=str(open('database/testtopic8.txt').read())
-	#lists.append(a8)
-	#a9['text']=str(open('database/testtopic9.txt').read())
-	#lists.append(a9)
-	write('database/test4.txt',str(lists))
-def writecontentcount(content):
-    if len(open('database/testtopic1.txt').read()) == 0:				# 
-	writecontent(content)
+	file1=filestr.split(',')
+	return file1
+def writecontentcount(content,i):
+    if len(open('database/testtopic'+int(i*9-8)+'.txt').read()) == 0:				# 
+	writecontent(content,i)
     else:
-        if len(open('database/testtopic2.txt').read()) == 0:
-	       writecontent1(content)
+        if len(open('database/testtopic'+(int(i)*9-7)+'.txt').read()) == 0:
+	       writecontent1(content,i)
         else:
-		    if len(open('database/testtopic3.txt').read()) == 0:
-		      writecontent2(content)
+		    if len(open('database/testtopic'+(int(i)*9-6)+'.txt').read()) == 0:
+		      writecontent2(content,i)
 		    else:
-		        if len(open('database/testtopic4.txt').read()) == 0:
-				    writecontent3(content)
+		        if len(open('database/testtopic'+(int(i)*9-5)+'.txt').read()) == 0:
+				    writecontent3(content,i)
 			else:
-				if len(open('database/testtopic5.txt').read()) == 0:
-				    writecontent4(content)
+				if len(open('database/testtopic'+(int(i)*9-4)+'.txt').read()) == 0:
+				    writecontent4(content,i)
 				else:
-				    if len(open('database/testtopic6.txt').read()) == 0:
-					    writecontent5(content)
+				    if len(open('database/testtopic'+(int(i)*9-3)+'.txt').read()) == 0:
+					    writecontent5(content,i)
 				    else:
-				        if len(open('database/testtopic7.txt').read()) == 0:writecontent6(content)
+				        if len(open('database/testtopic'+(int(i)*9-2)+'.txt').read()) == 0:writecontent6(content,i)
 					else:
-					    if len(open('database/testtopic8.txt').read())==0:writecontent7(content)
+					    if len(open('database/testtopic'+(int(i)*9-1)+'.txt').read())==0:writecontent7(content,i)
 					    else:
-						    if len(open('database/testtopic9.txt').read())==0:writecontent8(content)
+						    if len(open('database/testtopic'+(int(i)*9)+'.txt').read())==0:writecontent8(content,i)
 def data2(filename,i):
     #f = open(filename)
 	dict = open(filename).read()
