@@ -9,7 +9,6 @@ import datetime
 from decimal import * 
 fp1=open('database/test3.txt','w')
 fp=open('database/test1.txt','w')
-filestr=open('database/test5.txt').read()
 up=eval(open('database/test4.txt').read())
 down=eval(open('database/test4.txt').read())
 fp.truncate()
@@ -99,6 +98,8 @@ def data(filename):
 	else:
 	   return lines[0:len(lines)]
 def writecontent(content):
+    filesfile=open('database/test5.txt')
+    filestr=filesfile.read()
     files=filestr.split(',')
     b    =len(files)
     for file in files:
@@ -107,7 +108,9 @@ def writecontent(content):
 			open('database/'+file,'w').write(content)
 	                if b>0:
 			    break
-    open('database/'+str(time.time())+'.txt','w')			#
+    open('database/'+str(time.time())+'.txt','w')	#
+    open('database/test5.txt','a').write(','+str(time.time())+'.txt')
+    filesfile.close()
 def writecontent1(content,i):
    open('database/testtopic'+(i*9-7)+'.txt','w').write(content)
 def writecontent2(content):
@@ -141,7 +144,10 @@ def addlistdown(i):
 	write('database/test4.txt',str(down))
 	return down[i]['down']
 def writelist():
-	file1=filestr.split(',')
+        filesfile1=open('database/test5.txt')
+        filestr1=filesfile1.read()
+	file1=filestr1.split(',')
+	filesfile1.close()
 	return file1
 def writecontentcount(content,i):
     if len(open('database/testtopic'+int(i*9-8)+'.txt').read()) == 0:				# 
