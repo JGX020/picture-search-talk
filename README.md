@@ -14,3 +14,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 first step finish search enging
 
+question and bug :
+https://github.com/JGX020/picture-search-talk/issues
