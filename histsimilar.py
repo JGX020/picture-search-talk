@@ -75,6 +75,7 @@ def list2(file):
 	#print '%.3f%%'(calc_similar_by_path('uploads/1.JPG', 'uploads'+os.sep + dict[0]['name']))
         if  Decimal(r)>=Decimal(50.000):
 	         list.append(dicts)
+	print list
 	fp=open('database/test1.txt','w')
 	fp1=open('database/test3.txt','w')
 	if len(list)>9:

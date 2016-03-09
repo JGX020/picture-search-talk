@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
    <script type=text/javascript src="{{
@@ -14,6 +14,9 @@
             if (r != null) return unescape(r[2]); return null; //返回参数值
         }
   $(function() {
+  if('{{username}}'!=''){
+    $('#username').html('{{username}}');
+    $('#control').html('控制台');}
     $('a#calculate').bind('click', function() {
       $.getJSON($SCRIPT_ROOT + '/_add_numbersss', {
         a: $('input[name="a"]').val(),
@@ -25,12 +28,16 @@
     });
   });
  function page(){
- var pagenum=parseInt(getUrlParam('pages'))+1;
+var pagenum=0
+if(getUrlParam('pages')!=null){
+ pagenum=parseInt(getUrlParam('pages'))+1;}
+else
+pagenum=2
  location.href="/pagejump?pages="+pagenum;
  }
 </script>
   <title>Flask File Upload Example</title>
-  <style>body{padding-top: 100px;line-height:1.7;font-size:18px;text-align: center;}</style>
+  <style>body{padding-top: 20px;line-height:1.7;font-size:18px;text-align: center;}</style>
   <style type="text/css"> 
 ul,li,ol,dl,dt,dd{
  padding:0px;
@@ -101,10 +108,11 @@ a.link1{color:#797979;}
  color:#9B9B9B;
  margin-right:7px;
 }
-</style> 
+</style>
 </head>
 <body>
-  <h1>Flask File Upload Example</h1>
+  <div style="height:100px;text-align:right;"><p>You IP address is: <strong>{{user_ip}}</strong></p><a href="#" id=control style=" margin-left:20px;"></a><a href="#" id=control style=" margin-left:20px;">访问统计查询</a><a href="/map" id=control style=" margin-left:20px;">地图</a><a href="#" style=" margin-left:20px;">bug库中心</a><a href="{{ipadd}}" style=" margin-left:20px;">空间</a><a href="/login" id=username style=" margin-left:20px;">登录</a><a href="/register" style=" margin-left:20px;">注册</a></div>
+  <h1>图片快搜</br>10:05am-10:30pm</h1>
   <form method="post" enctype="multipart/form-data" action="/jump">
     <input type="file" name="file">
    <input type="submit" value="Upload">

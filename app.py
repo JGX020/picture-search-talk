@@ -1,12 +1,18 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import sqlite3
 import os
 import uuid
 import histsimilar
+import client
 import time
 import datetime
 import random
 import textreplace
 import json
+import dygeneratehtml
+import geo
 from flask import Flask, render_template,session, g,abort,flash, request, redirect, url_for, \
     send_from_directory,jsonify
 
@@ -16,8 +22,10 @@ from flask import Flask, render_template,session, g,abort,flash, request, redire
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'uploads/'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOADFILE_FOLDER='uploadsfile'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','mp4'])
+app.config['UPLOAD_FOLDER'] = UPLOADFILE_FOLDER
+app.config['UPLOADFILE_FOLDER'] = UPLOAD_FOLDER
 app.config['STATIC_FOLDER'] = UPLOAD_FOLDER
 path = r'testpic/TEST%d/%d.JPG'
 
@@ -318,13 +326,52 @@ def index():
 	#delete_test()
     #fetchall_test()
     #r=fetchall_test()
+    ftext=open('iptest.txt').read()
+    histsimilar.write('iptest.txt',ftext+','+request.remote_addr)
     if request.method == 'POST':
         file = request.files['file']
 		#print lii.append({'imgurl':'','title':'','name':'12.jpg'})
         if file and allowed_file(file.filename):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], "a.jpg"))
             return render_template('index.html',dict=histsimilar.list2('F:\\flask-file-upload-example-master\\uploads'))
-    return render_template('index.html',dict=histsimilar.data(filename))
+    return render_template('index.html',dict=histsimilar.data(filename),user_ip = request.remote_addr)
+@app.route('/loginup', methods=['GET', 'POST'])
+def loginup():
+    if request.method == 'POST':
+        return render_template('index.html',dict=histsimilar.data(filename),username=client.selname(request.form['username'],request.form['password']),ipadd='/space?unicode='+request.form['username'])
+@app.route('/regisiterup', methods=['GET', 'POST'])
+def regisiterup():
+    if request.method == 'POST':
+        client.insertmes('(\''+request.form['username']+'\',\''+request.form['password']+'\',\''+request.form['email']+'\')')
+        return render_template('index.html',dict=histsimilar.data(filename),user_ip = request.remote_addr)
+@app.route('/space', methods=['GET', 'POST'])
+def space():
+    if request.method == 'POST':
+        file = request.files['file']
+        dygeneratehtml.replace()
+		#print lii.append({'imgurl':'','title':'','name':'12.jpg'})
+        if file and allowed_file(file.filename):
+            file.save(os.path.join(app.config['UPLOADFILE_FOLDER'],file.filename))
+        if file and allowed_file(file.filename):
+            client.send_file2 ('validate.txt','101.200.167.44')
+        if file and allowed_file(file.filename):
+            client.send_file ('uploadsfile/'+file.filename,'101.200.167.44')
+            return render_template('space.html',hrefadd='ftp://'+request.args.get('fileadd')+'/'+file.filename)        
+    if open('temp/tmp.txt').read()=='true' and request.args.get('unicode')=='jgx020':            #advanced
+        return render_template('space.html',hrefadd=client.seladdr('jgx020')[3:len(open('temp/tmp2.txt').read())-4])
+    else:
+        return render_template('404.html')
+@app.route('/fileuploadsys')
+def fileuploadsys():
+        return render_template('fileuploadsys.html')
+@app.route('/map',methods=['POST', 'GET'])
+def map():
+    if request.method =='POST':
+        if geo.position(request.form['position']) is not None:
+            return render_template('map.html',longs=geo.position(request.form['position']).split(':')[0],lati=geo.position(request.form['position']).split(':')[1])
+        else:
+            return render_template('404.html')
+    return render_template('map.html',longs='116.391248',lati='39.9059631') 
 @app.route('/uploadstext',methods=['POST', 'GET'])
 def uploadtext():
     if request.method == 'POST':
@@ -343,6 +390,9 @@ def find():
         if file and allowed_file(file.filename):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], histsimilar.filesave(time.strftime('%Y-%m-%d %H-%M-%S',time.localtime(int(time.time())))+".jpg")))
             return render_template('index.html',dict=histsimilar.list2('F:\\flask-file-upload-example-master\\uploads'))
+@app.route('/login',methods=['GET','POST'])
+def login():
+    return render_template('login.html')
 @app.route('/direct',methods=['POST', 'GET'])
 def derictfile():
 	return render_template('editor.html',img_from_args=request.args.get('img'),page=request.args.get('i'),content1=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-9]).read(),content2=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-8]).read(),content3=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-7]).read(),content4=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-6]).read(),content5=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-5]).read(),content6=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-4]).read(),content7=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-3]).read(),content8=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-2]).read(),content9=open('database/'+histsimilar.writelist()[int(request.args.get('i'))*9-1]).read())
@@ -394,9 +444,15 @@ def rights7():
 @app.route('/down7',methods=['POST', 'GET'])
 def downs7():
     return render_template('editor.html',datad7=json.dumps(histsimilar.addlistdown(7)),img_from_args=request.args.get('img'),page=request.args.get('i'),content1=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-9]['text'],content2=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-8]['text'],content3=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-7]['text'],content4=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-6]['text'],content5=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-5]['text'],content6=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-4]['text'],content7=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-3]['text'],content8=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-2]['text'],content9=histsimilar.data0('database/test4.txt')[int(request.args.get('i'))*9-1]['text'])
+@app.route('/register',methods=['GET','POST'])
+def register():
+    return render_template('register.html')
 @app.route('/pagejump',methods=['POST', 'GET'])
 def index2():
+    if request.args.get('pages') is None:
 	return render_template('index.html',dict=histsimilar.data2(filename,request.args.get('pages')))
+    else:
+        return render_template('index.html',dict=histsimilar.data2(filename,2))
 @app.route('/_add_numbersss')
 def add_numbersss():
     a = request.args.get('a', 0, type=int)
@@ -407,4 +463,4 @@ def add_numbers():
     textreplace.replace(open('database/test1.txt').readlines())
     return render_template('index.html',dict=histsimilar.data(filename))
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=8000)
+    app.run(host="0.0.0.0",port=80)
