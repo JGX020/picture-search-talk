@@ -1,5 +1,5 @@
 # picture-search-talk
-pst 0.3
+pst 0.8
 main function search similiar pictures to edit your talking
 
 The MIT License (MIT)
